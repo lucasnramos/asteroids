@@ -33,20 +33,21 @@ def main():
                 return
 
         updatable.update(dt)
+        screen.fill("black")
 
         for asteroid in asteroids:
             if asteroid.collides_with(player):
                 print("Game Over!")
                 return pygame.QUIT
-
-        screen.fill("black")
+            for shot in shots:
+                if asteroid.collides_with(shot):
+                    shot.kill()
+                    asteroid.kill()
 
         for obj in drawable:
             obj.draw(screen)
 
         pygame.display.flip()
-
-        # limit the framerate to 60 FPS
         dt = clock.tick(60) / 1000
 
 
